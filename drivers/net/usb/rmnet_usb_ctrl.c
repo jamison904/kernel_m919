@@ -1028,7 +1028,7 @@ int rmnet_usb_ctrl_init(void)
 {
 	struct rmnet_ctrl_dev	*dev;
 	int			n;
-	int			status = 0;
+	int			status;
 
 	for (n = 0; n < NUM_CTRL_CHANNELS; ++n) {
 
