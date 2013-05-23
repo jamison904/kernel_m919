@@ -34,6 +34,7 @@ config IOSCHED_DEADLINE
 
 config IOSCHED_ROW
 	tristate "ROW I/O scheduler"
+	default y
 	---help---
 	  The ROW I/O scheduler gives priority to READ requests over the
 	  WRITE requests when dispatching, without starving WRITE requests.
@@ -111,6 +112,16 @@ config IOSCHED_FIOPS
 	  This is an IOPS based I/O scheduler. It will try to distribute
           IOPS equally among all processes in the system. It's mainly for
           Flash based storage.
+
+config IOSCHED_SIO
+	tristate "Simple I/O scheduler"
+	default y
+	---help---
+	  The Simple I/O scheduler is an extremely simple scheduler,
+	  based on noop and deadline, that relies on deadlines to
+	  ensure fairness. The algorithm does not do any sorting but
+	  basic merging, trying to keep a minimum overhead. It is aimed
+	  mainly for aleatory access devices (eg: flash devices).
 
 choice
 	prompt "Default I/O scheduler"
