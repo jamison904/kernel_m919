@@ -23,6 +23,23 @@
 
 #define CPUFREQ_NAME_LEN 16
 
+<<<<<<< HEAD
+=======
+extern int GLOBALKT_MIN_FREQ_LIMIT;
+extern int GLOBALKT_MAX_FREQ_LIMIT;
+
+#define FREQ_TABLE_SIZE		42
+#define FREQ_TABLE_SIZE_OFFSET	4
+#define FREQ_STEPS		22
+
+#define MAX_VDD_SC		1500000 /* uV */
+#define MIN_VDD_SC		700000 /* uV */
+#define MAX_VDD_MEM_DIG		1250000 /* uV */
+
+#define USER_MIN_START	1
+#define USER_MAX_START	2
+extern unsigned int kthermal_limit;
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 
 /*********************************************************************
  *                     CPUFREQ NOTIFIER INTERFACE                    *

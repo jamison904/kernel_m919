@@ -37,7 +37,7 @@ static struct hfpll_data hfpll_data __initdata = {
 	.vdd[HFPLL_VDD_NONE] =       0,
 	.vdd[HFPLL_VDD_LOW]  =  945000,
 	.vdd[HFPLL_VDD_NOM]  = 1050000,
-	.vdd[HFPLL_VDD_HIGH] = 1150000,
+	.vdd[HFPLL_VDD_HIGH] = MAX_VDD_MEM_DIG,
 };
 
 static struct scalable scalable[] __initdata = {
@@ -47,9 +47,15 @@ static struct scalable scalable[] __initdata = {
 		.aux_clk_sel = 3,
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x4501,
+<<<<<<< HEAD
 		.vreg[VREG_CORE] = { "krait0", 1300000 },
 		.vreg[VREG_MEM]  = { "krait0_mem", 1150000 },
 		.vreg[VREG_DIG]  = { "krait0_dig", 1150000 },
+=======
+		.vreg[VREG_CORE] = { "krait0", MAX_VDD_SC },
+		.vreg[VREG_MEM]  = { "krait0_mem", MAX_VDD_MEM_DIG },
+		.vreg[VREG_DIG]  = { "krait0_dig", MAX_VDD_MEM_DIG },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 		.vreg[VREG_HFPLL_A] = { "krait0_hfpll", 1800000 },
 	},
 	[CPU1] = {
@@ -58,9 +64,15 @@ static struct scalable scalable[] __initdata = {
 		.aux_clk_sel = 3,
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x5501,
+<<<<<<< HEAD
 		.vreg[VREG_CORE] = { "krait1", 1300000 },
 		.vreg[VREG_MEM]  = { "krait1_mem", 1150000 },
 		.vreg[VREG_DIG]  = { "krait1_dig", 1150000 },
+=======
+		.vreg[VREG_CORE] = { "krait1", MAX_VDD_SC },
+		.vreg[VREG_MEM]  = { "krait1_mem", MAX_VDD_MEM_DIG },
+		.vreg[VREG_DIG]  = { "krait1_dig", MAX_VDD_MEM_DIG },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 		.vreg[VREG_HFPLL_A] = { "krait1_hfpll", 1800000 },
 	},
 	[CPU2] = {
@@ -69,9 +81,15 @@ static struct scalable scalable[] __initdata = {
 		.aux_clk_sel = 3,
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x6501,
+<<<<<<< HEAD
 		.vreg[VREG_CORE] = { "krait2", 1300000 },
 		.vreg[VREG_MEM]  = { "krait2_mem", 1150000 },
 		.vreg[VREG_DIG]  = { "krait2_dig", 1150000 },
+=======
+		.vreg[VREG_CORE] = { "krait2", MAX_VDD_SC },
+		.vreg[VREG_MEM]  = { "krait2_mem", MAX_VDD_MEM_DIG },
+		.vreg[VREG_DIG]  = { "krait2_dig", MAX_VDD_MEM_DIG },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 		.vreg[VREG_HFPLL_A] = { "krait2_hfpll", 1800000 },
 	},
 	[CPU3] = {
@@ -80,9 +98,15 @@ static struct scalable scalable[] __initdata = {
 		.aux_clk_sel = 3,
 		.sec_clk_sel = 2,
 		.l2cpmr_iaddr = 0x7501,
+<<<<<<< HEAD
 		.vreg[VREG_CORE] = { "krait3", 1300000 },
 		.vreg[VREG_MEM]  = { "krait3_mem", 1150000 },
 		.vreg[VREG_DIG]  = { "krait3_dig", 1150000 },
+=======
+		.vreg[VREG_CORE] = { "krait3", MAX_VDD_SC },
+		.vreg[VREG_MEM]  = { "krait3_mem", MAX_VDD_MEM_DIG },
+		.vreg[VREG_DIG]  = { "krait3_dig", MAX_VDD_MEM_DIG },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 		.vreg[VREG_HFPLL_A] = { "krait3_hfpll", 1800000 },
 	},
 	[L2] = {
@@ -106,6 +130,7 @@ static struct msm_bus_paths bw_level_tbl[] __initdata = {
 	[3] = BW_MBPS(2128), /* At least 266 MHz on bus. */
 	[4] = BW_MBPS(3200), /* At least 400 MHz on bus. */
 	[5] = BW_MBPS(4264), /* At least 533 MHz on bus. */
+	[6] = BW_MBPS(4600),
 };
 
 static struct msm_bus_scale_pdata bus_scale_data __initdata = {
@@ -132,6 +157,8 @@ static struct l2_level l2_freq_tbl[] __initdata = {
 	[13] = { { 1080000, HFPLL, 1, 0x28 }, 1150000, 1150000, 5 },
 	[14] = { { 1134000, HFPLL, 1, 0x2A }, 1150000, 1150000, 5 },
 	[15] = { { 1188000, HFPLL, 1, 0x2C }, 1150000, 1150000, 5 },
+	[16] = { { 1242000, HFPLL, 1, 0x2E }, MAX_VDD_MEM_DIG, MAX_VDD_MEM_DIG, 6 },
+	[17] = { { 1296000, HFPLL, 1, 0x30 }, MAX_VDD_MEM_DIG, MAX_VDD_MEM_DIG, 6 },
 	{ }
 };
 
@@ -493,6 +520,13 @@ static struct acpu_level tbl_PVS0_2000MHz[] __initdata = {
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(15), 1175000 },
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(15), 1225000 },
 	{ 1, {  1890000, HFPLL, 1, 0x46 }, L2(15), 1287500 },
+<<<<<<< HEAD
+=======
+	{ 1, {  1998000, HFPLL, 1, 0x4A }, L2(16), 1300000 },
+	{ 1, {  2106000, HFPLL, 1, 0x4E }, L2(17), 1350000 },
+	{ 1, {  2214000, HFPLL, 1, 0x52 }, L2(17), 1400000 },
+	{ 1, {  2322000, HFPLL, 1, 0x56 }, L2(17), 1425000 },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 	{ 0, { 0 } }
 };
 
@@ -512,6 +546,13 @@ static struct acpu_level tbl_PVS1_2000MHz[] __initdata = {
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(15), 1137500 },
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(15), 1187500 },
 	{ 1, {  1890000, HFPLL, 1, 0x46 }, L2(15), 1250000 },
+<<<<<<< HEAD
+=======
+	{ 1, {  1998000, HFPLL, 1, 0x4A }, L2(16), 1275000 },
+	{ 1, {  2106000, HFPLL, 1, 0x4E }, L2(17), 1325000 },
+	{ 1, {  2214000, HFPLL, 1, 0x52 }, L2(17), 1375000 },
+	{ 1, {  2322000, HFPLL, 1, 0x56 }, L2(17), 1400000 },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 	{ 0, { 0 } }
 };
 
@@ -531,6 +572,13 @@ static struct acpu_level tbl_PVS2_2000MHz[] __initdata = {
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(15), 1112500 },
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(15), 1162500 },
 	{ 1, {  1890000, HFPLL, 1, 0x46 }, L2(15), 1212500 },
+<<<<<<< HEAD
+=======
+	{ 1, {  1998000, HFPLL, 1, 0x4A }, L2(16), 1250000 },
+	{ 1, {  2106000, HFPLL, 1, 0x4E }, L2(17), 1300000 },
+	{ 1, {  2214000, HFPLL, 1, 0x52 }, L2(17), 1350000 },
+	{ 1, {  2322000, HFPLL, 1, 0x56 }, L2(17), 1375000 },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 	{ 0, { 0 } }
 };
 
@@ -550,6 +598,13 @@ static struct acpu_level tbl_PVS3_2000MHz[] __initdata = {
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(15), 1087500 },
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(15), 1137500 },
 	{ 1, {  1890000, HFPLL, 1, 0x46 }, L2(15), 1175000 },
+<<<<<<< HEAD
+=======
+	{ 1, {  1998000, HFPLL, 1, 0x4A }, L2(16), 1225000 },
+	{ 1, {  2106000, HFPLL, 1, 0x4E }, L2(17), 1275000 },
+	{ 1, {  2214000, HFPLL, 1, 0x52 }, L2(17), 1325000 },
+	{ 1, {  2322000, HFPLL, 1, 0x56 }, L2(17), 1350000 },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 	{ 0, { 0 } }
 };
 
@@ -569,6 +624,13 @@ static struct acpu_level tbl_PVS4_2000MHz[] __initdata = {
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(15), 1075000 },
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(15), 1112500 },
 	{ 1, {  1890000, HFPLL, 1, 0x46 }, L2(15), 1150000 },
+<<<<<<< HEAD
+=======
+	{ 1, {  1998000, HFPLL, 1, 0x4A }, L2(16), 1200000 },
+	{ 1, {  2106000, HFPLL, 1, 0x4E }, L2(17), 1250000 },
+	{ 1, {  2214000, HFPLL, 1, 0x52 }, L2(17), 1300000 },
+	{ 1, {  2322000, HFPLL, 1, 0x56 }, L2(17), 1325000 },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 	{ 0, { 0 } }
 };
 
@@ -588,6 +650,13 @@ static struct acpu_level tbl_PVS5_2000MHz[] __initdata = {
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(15), 1050000 },
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(15), 1087500 },
 	{ 1, {  1890000, HFPLL, 1, 0x46 }, L2(15), 1125000 },
+<<<<<<< HEAD
+=======
+	{ 1, {  1998000, HFPLL, 1, 0x4A }, L2(16), 1175000 },
+	{ 1, {  2106000, HFPLL, 1, 0x4E }, L2(17), 1225000 },
+	{ 1, {  2214000, HFPLL, 1, 0x52 }, L2(17), 1275000 },
+	{ 1, {  2322000, HFPLL, 1, 0x56 }, L2(17), 1325000 },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 	{ 0, { 0 } }
 };
 
@@ -607,6 +676,13 @@ static struct acpu_level tbl_PVS6_2000MHz[] __initdata = {
 	{ 1, {  1674000, HFPLL, 1, 0x3E }, L2(15), 1025000 },
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(15), 1062500 },
 	{ 1, {  1890000, HFPLL, 1, 0x46 }, L2(15), 1100000 },
+<<<<<<< HEAD
+=======
+	{ 1, {  1998000, HFPLL, 1, 0x4A }, L2(16), 1150000 },
+	{ 1, {  2106000, HFPLL, 1, 0x4E }, L2(17), 1200000 },
+	{ 1, {  2214000, HFPLL, 1, 0x52 }, L2(17), 1250000 },
+	{ 1, {  2322000, HFPLL, 1, 0x56 }, L2(17), 1300000 },
+>>>>>>> b033c4f... acpuclock: Add 600 Mhz on BUS, raise L2 cache to 1296, and use 1242 a
 	{ 0, { 0 } }
 };
 
